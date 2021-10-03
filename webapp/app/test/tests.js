@@ -10,7 +10,7 @@ describe('loading express', function () {
   after(function (done){
     server.close()
     // need to close the connection pool otherwise the tests don't exit
-    let pool = require('../server/queries').pool
+    let pool = require('../server/database').pool
     pool.end()
     done()
   })
