@@ -8,7 +8,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/check-db-connection', (req, res) => {
-
   db.pool.connect((err, client, release) => {
     if (err) {
       res.send("Error acquiring client")
@@ -23,6 +22,8 @@ app.get('/check-db-connection', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+server = app.listen(port, () => {
+  //console.log(`Example app listening at http://localhost:${port}`)
 })
+
+module.exports = {server: server, app:app}
