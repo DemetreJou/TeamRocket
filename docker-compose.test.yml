@@ -1,9 +1,10 @@
-version: "3.3"
+version: "3.4"
 services:
   webapp-test:
     build:
       context: webapp
-      dockerfile: Dockerfile-test
+      dockerfile: Dockerfile
+      target: test
     depends_on:
       - webapp-database
   webapp-database:
