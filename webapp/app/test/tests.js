@@ -1,14 +1,27 @@
 const request = require('supertest');
 
 describe('loading express', function () {
-  const {server, app} = require('../server/server')
+  let server
+
+  before(function (done){
+    server = require('../server/server').server
+    done()
+  });
+  after(function (done){
+    server.close()
+    // need to close the connection pool otherwise the tests don't exit
+    let pool = require('../server/queries').pool
+    pool.end()
+    done()
+  })
+
   it('responds to /', function testSlash(done) {
     request(server)
       .get('/')
       .expect(200, done);
   });
   it('connects to database', function testConnection(done){
-    request(app)
+    request(server)
       .get('/check-db-connection')
       .expect(200, done);
   });
