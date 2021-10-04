@@ -32,16 +32,14 @@ Have a simple “dummy” page on the web browser that presents relevant informa
 ### Quick Start Guide
 - Clone the repository
 - Go into the directory created by cloning the repository
-- Use the command `docker compose up`
+- Use the commands `docker compose up`, followed by `docker compose build`
 ### Test Guide 
 - Clone the repository
 - Go into the directory created by cloning the repository
 - Use the command `npm run test`
 
-
 ## Dependencies
-Need to add versions to these
-* Node
-* npm + npm install dependencies
-* Docker
-* psql (but this could probably be handled by running psql in a container)
+* Node 16
+* npm 7.24.0
+* Docker 20.10
+* psql 14
