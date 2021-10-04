@@ -15,7 +15,6 @@
   },
   "scripts": {
     "start": "node app/server/server.js",
-    "test": "node app/tests/tests.js"
   },
   "author": "",
   "license": "ISC"
