@@ -35,4 +35,4 @@
 
 - **“Leader-follower” Database Architecture:** Additional tweaks we can add to our database would be to implement a “leader-follower” database architecture to help stabilize the system.
 
-- **Kafka Queue:** We want to improve our overall system peak load hardening through implementing a kafka queue architecture. Thats right.
+- **Kafka Queue:** We want to improve our overall system peak load hardening through implementing a kafka queue architecture.
