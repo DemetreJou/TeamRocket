@@ -1,4 +1,4 @@
-**Project Milestones**
+### **Project Milestones**
 
 ### High-level overview and milestones
 
@@ -13,14 +13,14 @@ meeting notes, road-mapping, learning-oriented tech-stack and high-level milesto
 Although it is a process that we will repeat in every milestone, the first one
 will define the overall foundation of our project
 
-- **Similar Tools:** The next step would be to undergo some preliminary research. 
-Since our domain consists of distributed logging and monitoring, there are a lot of 
-industry standard tools used in today’s world that we can use as a blueprint. Creating 
-a basic prototype from some specific tools like ElasticSearch would guide us in our 
-first steps. Therefore, we should do some research and understand how present 
-architectures in this domain work before embarking on our own. Configuration and 
-deployment. After we have decided on very basic details, we can get started on 
-configuring and deploying a dummy application using our tech stack. 
+- **Similar Tools:** The next step would be to undergo some preliminary research.
+Since our domain consists of distributed logging and monitoring, there are a lot of
+industry standard tools used in today’s world that we can use as a blueprint. Creating
+a basic prototype from some specific tools like ElasticSearch would guide us in our
+first steps. Therefore, we should do some research and understand how present
+architectures in this domain work before embarking on our own. Configuration and
+deployment. After we have decided on very basic details, we can get started on
+configuring and deploying a dummy application using our tech stack.
 This application would help set in stone the foundation to our code and enable us
 to conjointly work on it through Github.
 
