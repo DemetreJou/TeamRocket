@@ -1,8 +1,8 @@
 # Project Milestones
 
-### High-level overview and milestones
+## High-level overview and milestones
 
-#### 1st Milestone
+### 1st Milestone
 
 - **Documentation:** The first step of the project is documentation.
 We want to make sure that every decision is well documented, so that we can come back
@@ -51,7 +51,7 @@ the backend system.
 
 - **Shard Database:** At this stage, we want to make improvements to our database. Through horizontal partitioning, we can facilitate horizontal scaling. This allows us to spread out the overall traffic load and allow for faster processing.
 
-#### 4th Milestone
+##### 4th Milestone
 
 - **Data Visualization:** Once we have the backend working as we intended, we could go as far to implement a visualization tool on the frontend. This visualization would allow for easier navigation of our logging and monitoring system.
 
