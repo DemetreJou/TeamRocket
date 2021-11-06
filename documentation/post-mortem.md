@@ -17,7 +17,9 @@
 
 ### What Goals have been Missed and by How Much? 
 
-- **Scale:** Our backend does not currently implement the features at a scale we had originally imagined. However, it does work well on a smaller scale, and this is a good start for our A2. We will continue to work on the scalability in the near future. 
+- **Architecture:** Our current architecture is rather prone to error and failure, due primarily to the fact that it has a lot of single points of failure. We will work on developing and implementing a new & improved architecture in the near future. 
+
+- **Object-Relational Mapping:** During development, we recognized that the scope of the connection from log manager to the database is significantly more involved and complicated than we had originally anticipated. This is due in large part to the inclusion of ORM into our application, and the time taken to research & understand PRISMA. We will work on integrating this in our application in the near future. 
 
 ### What plans need to be adjusted based on time availabl and project scope?
 
