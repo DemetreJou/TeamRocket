@@ -1,4 +1,4 @@
-** Project Milestones ** 
+**Project Milestones**
 
 ### High-level overview and milestones
 
@@ -13,8 +13,16 @@ meeting notes, road-mapping, learning-oriented tech-stack and high-level milesto
 Although it is a process that we will repeat in every milestone, the first one
 will define the overall foundation of our project
 
-- **Similar Tools:** The next step would be to undergo some preliminary research. Since our domain consists of distributed logging and monitoring, there are a lot of industry standard tools used in today’s world that we can use as a blueprint. Creating a basic prototype from some specific tools like ElasticSearch would guide us in our first steps. Therefore, we should do some research and understand how present architectures in this domain work before embarking on our own.
-  Configuration and deployment. After we have decided on very basic details, we can get started on configuring and deploying a dummy application using our tech stack. This application would help set in stone the foundation to our code and enable us to conjointly work on it through Github.
+- **Similar Tools:** The next step would be to undergo some preliminary research. 
+Since our domain consists of distributed logging and monitoring, there are a lot of 
+industry standard tools used in today’s world that we can use as a blueprint. Creating 
+a basic prototype from some specific tools like ElasticSearch would guide us in our 
+first steps. Therefore, we should do some research and understand how present 
+architectures in this domain work before embarking on our own. Configuration and 
+deployment. After we have decided on very basic details, we can get started on 
+configuring and deploying a dummy application using our tech stack. 
+This application would help set in stone the foundation to our code and enable us
+to conjointly work on it through Github.
 
 - **CI/CD:** We also have to define our CI/CD workflow so that the code that we are going to all be eventually working on is decoupled from one another to ensure there is a faster merging process and we allocate less time for errors. CI/CD using GitHub Actions offers workflows that can build the code in your repository and run your tests on a set schedule to ensure preliminary checking before a team member reviews a PR.
 
