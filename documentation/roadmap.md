@@ -1,4 +1,4 @@
-### **Project Milestones**
+# Project Milestones
 
 ### High-level overview and milestones
 
@@ -24,7 +24,12 @@ configuring and deploying a dummy application using our tech stack.
 This application would help set in stone the foundation to our code and enable us
 to conjointly work on it through Github.
 
-- **CI/CD:** We also have to define our CI/CD workflow so that the code that we are going to all be eventually working on is decoupled from one another to ensure there is a faster merging process and we allocate less time for errors. CI/CD using GitHub Actions offers workflows that can build the code in your repository and run your tests on a set schedule to ensure preliminary checking before a team member reviews a PR.
+- **CI/CD:** We also have to define our CI/CD workflow so that the code that
+we are going to all be eventually working on is decoupled from one another to
+ensure there is a faster merging process and we allocate less time for errors.
+CI/CD using GitHub Actions offers workflows that can build the code in your
+repository and run your tests on a set schedule to ensure preliminary checking
+before a team member reviews a PR.
 
 - **Assignment of Tasks:** Assigning tasks earlier on ensures a faster workflow and directed division of responsibility.
 
