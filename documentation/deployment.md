@@ -1,12 +1,12 @@
-# DEPLOYMENT: AWS VS HEROKU
+## DEPLOYMENT: AWS VS HEROKU
 
 Since our application is based on a distributed architecture, we expect various different applications to be submitting logging data. As a result, we want our app to be deployed on a system with high uptime, low downtime, and several safety features. Our two candidates under consideration are Amazon Web Services (AWS) and Heroku.
 
-# AWS
+## AWS
 
 AWS is currently the global leader in cloud hosting, and comes with a variety of features.
 
-# AWS PROS
+## AWS PROS
 - Extremely Diverse Array of Services
     AWS has over 70 different services built into it, and several of these services may be very useful for the deployment and maintenance of our app.
 - Extremely High Uptime and Server Capacity
@@ -14,24 +14,24 @@ AWS is currently the global leader in cloud hosting, and comes with a variety of
 - Encryption/Security Services Out of the Box
     AWS has a variety of security & encryption services that we can use. Especially since our application may potentially deal with critical or sensitive data, a reliable encryption/security service is a must.
 
-# AWS CONS
+## AWS CONS
 - Billing is High & Often Unpredictable
     AWS prices are generally high, and although a billing calculator is available, it is not uncommon to be overcharged because of simple things such as letting a virtual machine run for longer than expected.
 - Risk of Data Leak / General Privacy Concerns
     AWS stores data in various data centers for redundancy/backup reasons. This may potentially lead to compromised security.
 
-# HEROKU
+## HEROKU
 
 Heroku is a cloud platform as a service offering hosting for web applications and support for various languages.
 
-# HEROKU PROS
+## HEROKU PROS
 
 - Ease of Use
     Heroku appears to be very easy to use. Additionally, previous courses taken by our team members such as CSC309 has given us experience with Heroku.
 - Fast Setup & Easy Deployment
     Heroku appears to be significantly more simple to setup than AWS
 
-# HEROKU CONS
+## HEROKU CONS
 
 - Lack of Features/Services
     Although Heroku is very simple to setup and use, it lacks various services and features that AWS has, especially when it comes to security and encryption.
