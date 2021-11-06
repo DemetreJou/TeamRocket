@@ -1,4 +1,4 @@
-## DEPLOYMENT: AWS VS HEROKU
+** DEPLOYMENT: AWS VS HEROKU **
 
 Since our application is based on a distributed architecture, we expect various different applications to be submitting logging data. As a result, we want our app to be deployed on a system with high uptime, low downtime, and several safety features. Our two candidates under consideration are Amazon Web Services (AWS) and Heroku.
 
