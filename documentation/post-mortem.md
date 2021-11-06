@@ -15,6 +15,10 @@
 
 - **Industry partner:** One of our goals was to also get in touch with the industry partner early. However, due to unexpected delays, we were unable to set up a meeting. We hope to set up a bi-weekly meeting with our partner for the next iteration in order for a greater visibility for our work.
 
+### What Goals have been Missed and by How Much? 
+
+- **Scale:** Our backend does not currently implement the features at a scale we had originally imagined. However, it does work well on a smaller scale, and this is a good start for our A2. We will continue to work on the scalability in the near future. 
+
 ### What plans need to be adjusted based on time availabl and project scope?
 
 Distributed logging and monitoring is a big field, and we need to undergo additional research in order to fully understand the project scope. We hope to, in synchronization with our work, also look into specific tools like ElasticSearch that would guide us to a better architecture.

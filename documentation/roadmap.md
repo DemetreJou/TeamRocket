@@ -36,3 +36,5 @@
 - **“Leader-follower” Database Architecture:** Additional tweaks we can add to our database would be to implement a “leader-follower” database architecture to help stabilize the system.
 
 - **Kafka Queue:** We want to improve our overall system peak load hardening through implementing a kafka queue architecture.
+
+For each of our milestones, we will conduct a thorough checking to ensure we have reached the agreed-upon goals. We will conduct a variety of user testing, manual testing, as well as integration testing to ensure the goals have been reached and that they work well within the existing system. We will ask team members who did not work on a specific feature to conduct testing for that feature. 
