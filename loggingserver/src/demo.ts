@@ -1,9 +1,3 @@
-// Use this file to test out the connection to the docker db
-// run the following commands:
-// npx prisma migrate dev --name init
-// npm run build 
-// npm start
-// that should run this file
 import { Level, LogManager } from "./log_manager";
 
 const manager = new LogManager();
