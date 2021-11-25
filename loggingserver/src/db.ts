@@ -13,7 +13,6 @@ export class DatabaseManager {
             data: {
                 machine_id: log.machineID,
                 message: log.message,
-                time_added: new Date().getTime(),
                 time_created: log.timeCreated,
                 level: log.level,
             }

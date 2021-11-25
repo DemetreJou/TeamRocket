@@ -19,7 +19,7 @@ export class LogManager {
         this.isClosed = false;
     }
 
-    async log(message: string, level: Level, logToConsole: boolean = true) {
+    async log(message: string, level: Level, logToConsole: boolean = false) {
         if (this.isClosed) {
             throw new Error("Invalid process. Please create new LogManager...");
         } 
@@ -29,36 +29,40 @@ export class LogManager {
         const logMsg = {
             message: message,
             timeAdded: null,
-            timeCreated: new Date().getTime(),
+            timeCreated: new Date(),
             level: level,
             machineID: this.machineID
         };
-        await this.dbManager.addLog(logMsg)
-        .then((result) => {
-            if (logToConsole) {
-                console.log(result);
-            }
-        })
-        .catch((error) => {
-            console.error("Log message not added to the database: ", logMsg);
-            console.error(error);
-        })
+        return await new Promise<any>((resolve, reject) => {
+            this.dbManager.addLog(logMsg)
+            .then((result) => {
+                if (logToConsole) {
+                    console.log(result);
+                }
+                resolve(result);
+            })
+            .catch((error) => {
+                console.log("ERROR HERE");
+                reject(`Log message not added to the database: ${error}`);
+            });  
+        });
     }
 
     async searchAll(printAll: boolean = false): Promise<any>{
-        await this.dbManager.searchLogs()
-        .then((result) => {
-            if (printAll) {
-                for (let entry of result){
-                    console.log(entry);
+        return await new Promise<any>((resolve, reject) => {
+            this.dbManager.searchLogs()
+            .then((result) => {
+                if (printAll) {
+                    for (let entry of result){
+                        console.log(entry);
+                    }
                 }
-            }
-            return result;
-        })
-        .catch((error) => {
-            console.error("No logs found...");
-            console.error(error);
-        })
+                resolve(result);
+            })
+            .catch((error) => {
+                reject(`Tried searching. No logs found: ${error}`);
+            });
+        });
     }
 
     async close() {

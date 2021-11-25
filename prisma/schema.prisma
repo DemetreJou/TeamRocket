@@ -10,8 +10,8 @@ datasource db {
 model logs {
   log_id       Int      @id @default(autoincrement())
   machine_id   String[] @db.VarChar(36)
-  time_created BigInt
-  time_added   BigInt
+  time_created DateTime @db.Timestamp()
+  time_added   DateTime @db.Timestamp() @default(now())
   level        Int      @db.SmallInt
   message      String[] @db.VarChar(500)
 }
