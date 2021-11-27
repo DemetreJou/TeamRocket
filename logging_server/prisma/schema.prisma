@@ -8,9 +8,9 @@ datasource db {
 }
 
 model log {
-  id            Int      @id @default(autoincrement())
-  machineId     String?   @db.Text
-  timestamp     DateTime @db.Timestamp @default(now())
-  logLevel      String?     @db.Text
-  message       String   @db.Text
+  id            Int         @id @default(autoincrement())
+  machineId     String?     @db.Text
+  timestamp     DateTime    @db.Timestamp @default(now())
+  logLevel      String?     @db.Text  // should probably be an enum or int so you can do logLevel >= "error" or similar
+  message       String      @db.Text
 }
