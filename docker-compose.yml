@@ -15,7 +15,7 @@ services:
   log_creator_1:
     container_name: log_creator_1
     build:
-      context: webapp
+      context: log_creator
       dockerfile: Dockerfile
       target: prod
     environment:
@@ -27,7 +27,7 @@ services:
   log_creator_2:
     container_name: log_creator_2
     build:
-      context: webapp
+      context: log_creator
       dockerfile: Dockerfile
       target: prod
     environment:
