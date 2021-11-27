@@ -1,12 +1,7 @@
 version: "3.4"
 services:
   database:
-    image: postgres:13.1
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
-      timeout: 45s
-      interval: 10s
-      retries: 10
+    image: postgres:14.0-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -14,8 +9,6 @@ services:
       - APP_DB_USER=docker
       - APP_DB_PASS=docker
       - APP_DB_NAME=docker
-    volumes:
-      - "${HOME}/Desktop/postgres:/docker-entrypoint-initdb.d/"
     ports:
       - "5432:5432"
 
@@ -27,9 +20,9 @@ services:
       target: prod
     environment:
       SEND_TO_URL: "http://log_creator_2:3001/"
-      PORT: 3000
+      PORT: 3002
     ports:
-      - "3000:3000"
+      - "3002:3002"
 
   log_creator_2:
     container_name: log_creator_2
@@ -38,7 +31,7 @@ services:
       dockerfile: Dockerfile
       target: prod
     environment:
-      SEND_TO_URL: "http://log_creator_1:3000/"
+      SEND_TO_URL: "http://log_creator_1:3002/"
       PORT: 3001
     ports:
       - "3001:3001"

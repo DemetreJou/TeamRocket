@@ -6,7 +6,7 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 
 app.get("/", (req, res) => {
-  res.send("Distributed Logging and Monitoring System");
+  res.send("Dummy Webapp for creating logs");
 });
 
 // This function gets called by the other log_creator
