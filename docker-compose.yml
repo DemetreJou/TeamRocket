@@ -4,13 +4,12 @@ services:
     image: postgres:14.0-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - APP_DB_USER=docker
-      - APP_DB_PASS=docker
-      - APP_DB_NAME=docker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: teamrocket_db
     ports:
-      - "5432:5432"
+      # using 5433 to avoid conflict with default port on dev machines
+      - "5433:5433"
 
   log_creator_1:
     container_name: log_creator_1
@@ -35,3 +34,17 @@ services:
       PORT: 3001
     ports:
       - "3001:3001"
+
+  logging_server:
+    container_name: logging_server
+    build:
+      context: logging_server
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - database
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:password@database:5433/teamrocket_db
+    ports:
+      - "3000:3000"
