@@ -9,8 +9,8 @@ datasource db {
 
 model log {
   id            Int      @id @default(autoincrement())
-  machineId     String   @db.Text
+  machineId     String?   @db.Text
   timestamp     DateTime @db.Timestamp @default(now())
-  logLevel      Int?     @db.SmallInt
+  logLevel      String?     @db.Text
   message       String   @db.Text
 }
