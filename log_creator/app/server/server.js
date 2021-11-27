@@ -14,7 +14,6 @@ app.get("/current_time", (req, res) => {
   const request_id = req.query["request_id"];
   let date = new Date();
   date.toISOString();
-  console.log(request_id, date);
   // TODO: send request to logging server
   res.send(date);
 });
@@ -29,7 +28,6 @@ server = app.listen(PORT, () => {
 
 function createLog() {
   const request_id = uuidv4();
-  console.log(request_id);
   axios
     .get(config.webapp.send_to_url + "current_time", {
       params: {
@@ -38,11 +36,11 @@ function createLog() {
     })
     .then(function(response) {
       // TODO: send request to logging server
-      console.log("success");
+      // console.log("success");
     })
     .catch(function(error) {
       // TODO: send result to logging server
-      console.log("fail");
+      // console.log("fail");
     });
 }
 
