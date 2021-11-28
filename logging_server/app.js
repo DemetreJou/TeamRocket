@@ -29,6 +29,53 @@ app.post("/log", async (req, res) => {
   res.status(201).json(req.body)
 });
 
+app.get("/logs/search", async (req, res) => {
+  // Returns all the log messages
+  const logs = await prisma.log.findMany()
+  res.json(logs)
+});
+
+// get all logs from a specific machine
+app.get("/logs/search/machine_id", async (req, res) => {
+  if(!req.query.machine_id) {
+    res.status(400).json({message: "machine_id is required"})
+  }
+  const logs = await prisma.log.findMany({
+    where: {
+      machineId: req.query.machine_id
+    }
+  })
+  res.json(logs)
+});
+
+app.get("/logs/search/time_period", async (req, res) => {
+  const from_exists = req.query.from.length > 0
+  const to_exists = req.query.from.length > 0
+  if (from_exists !== to_exists) {
+    res.status(400).json({message: "from and to must both be present or neither to be present"})
+  }
+  const logs = await prisma.log.findMany({
+    where: {
+      timestamp: {
+        gte: req.query.from,
+        lte: req.query.to
+      }
+    }
+  })
+  res.json(logs)
+});
+
+app.get("/logs/search/message", async (req, res) => {
+  const logs = await prisma.log.findMany({
+    where: {
+      message: {
+        contains: req.query.message
+      }
+    }
+  })
+  res.json(logs)
+});
+
 app.listen(PORT, () => {
   console.log(`log collection server running at http://localhost:${PORT}`);
 });
