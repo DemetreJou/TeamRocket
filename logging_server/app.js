@@ -25,7 +25,6 @@ async function saveLog(log) {
 
 app.post("/log", async (req, res) => {
   // TODO: add validation
-  // console.log(req.body)
   await saveLog(req.body)
   res.status(201).json(req.body)
 });
