@@ -24,12 +24,12 @@ async function saveLog(log) {
 
 app.post("/log", async (req, res) => {
   // TODO: add validation
-  console.log(req.body)
+  // console.log(req.body)
   await saveLog(req.body)
   res.status(201).json(req.body)
 });
 
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+  console.log(`log collection server running at http://localhost:${PORT}`);
 });
 module.exports = app;

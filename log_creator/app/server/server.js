@@ -23,10 +23,10 @@ app.get("/api", (req, res) => {
 });
 
 server = app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+  console.log(`log_creator running at http://localhost:${PORT}`);
 });
 
-function createLog() {
+function sendGetTimeRequest() {
   const request_id = uuidv4();
   axios
     .get(config.webapp.send_to_url + "current_time", {
@@ -60,13 +60,13 @@ function sendLogMessage(message, request_id) {
       }
     )
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
     })
     .catch(function (error) {
-      console.log(error)
+      // console.log(error)
     });
 }
 
-const _ = setInterval(createLog, 3000);
+const _ = setInterval(sendGetTimeRequest, 3000);
 
 module.exports = {server: server, app: app};
