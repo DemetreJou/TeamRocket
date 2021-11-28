@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const {param} = require("express/lib/router");
 const PORT = process.env.PORT || 3000;
 const PrismaClient = require('@prisma/client').PrismaClient;
 const prisma = new PrismaClient()
@@ -35,7 +36,6 @@ app.get("/logs/search/all", async (req, res) => {
   res.json(logs)
 });
 
-// get all logs from a specific machine
 app.get("/logs/search/machine_id", async (req, res) => {
   if(!req.query.machine_id) {
     res.status(400).json({message: "machine_id is required"})
@@ -52,13 +52,14 @@ app.get("/logs/search/time_period", async (req, res) => {
   const from_exists = req.query.from.length > 0
   const to_exists = req.query.from.length > 0
   if (from_exists !== to_exists) {
-    res.status(400).json({message: "from and to must both be present or neither to be present"})
+    res.status(400).json({message: "from and to must both be present or neither be present"})
   }
+
   const logs = await prisma.log.findMany({
     where: {
       timestamp: {
-        gte: req.query.from,
-        lte: req.query.to
+        gte: new Date(req.query.from),
+        lte: new Date(req.query.to)
       }
     }
   })
@@ -69,16 +70,16 @@ app.get("/logs/search/message", async (req, res) => {
   const logs = await prisma.log.findMany({
     where: {
       message: {
-        contains: req.query.message
+        contains: req.query.message,
+        mode: 'insensitive'
       }
     }
   })
   res.json(logs)
 });
 
-// get all log message with specific request id
 app.get("logs/search/request_id", async (req, res) => {
-  if(!req.query.request_id) {
+  if (!req.query.request_id) {
     res.status(400).json({message: "request_id is required"})
   }
   const logs = await prisma.log.findMany({
@@ -88,6 +89,64 @@ app.get("logs/search/request_id", async (req, res) => {
   })
   res.json(logs)
 });
+
+app.get("/logs/search/level", async (req, res) => {
+  // TODO: should make this be able to search for multiple log levels
+  if (!req.query.level) {
+    res.status(400).json({message: "level is required"})
+  }
+  const logs = await prisma.log.findMany({
+    where: {
+      logLevel: req.query.level
+    }
+  })
+  res.json(logs)
+});
+
+app.get("/logs/search", async (req, res) => {
+    // generic search that can receive multiple parameters and parse them appropriately
+    let where_clause = {}
+    if (valid_date_range(req)){
+      if(req.query.from !== undefined) {
+        where_clause = {
+          timestamp: {
+            gte: new Date(req.query.from),
+            lte: new Date(req.query.to)
+          }
+        }
+      }
+    } else {
+      res.status(400).json({message: "from and to must both be present or neither be present"}).send()
+      return
+    }
+    if (req.query.machine_id) {
+      where_clause.machineId = req.query.machine_id
+    }
+    if(req.query.level) {
+      where_clause.logLevel = req.query.level
+    }
+    if(req.query.message) {
+      where_clause.message = {
+        contains: req.query.message,
+        mode: 'insensitive'
+      }
+    }
+    if(req.query.request_id) {
+      where_clause.requestId = req.query.request_id
+    }
+
+    const logs = await prisma.log.findMany({
+      where: where_clause
+    })
+    res.json(logs)
+  }
+)
+
+function valid_date_range(req) {
+  const from_undefined = (req.query.from === undefined)
+  const to_undefined = (req.query.to === undefined)
+  return from_undefined === to_undefined
+}
 
 app.listen(PORT, () => {
   console.log(`log collection server running at http://localhost:${PORT}`);
