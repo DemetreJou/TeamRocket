@@ -67,6 +67,6 @@ function sendLogMessage(message, request_id) {
     });
 }
 
-const _ = setInterval(sendGetTimeRequest, 3000);
+const _ = setInterval(sendGetTimeRequest, 10000);
 
 module.exports = {server: server, app: app};
