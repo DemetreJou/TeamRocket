@@ -29,7 +29,7 @@ app.post("/log", async (req, res) => {
   res.status(201).json(req.body)
 });
 
-app.get("/logs/search", async (req, res) => {
+app.get("/logs/search/all", async (req, res) => {
   // Returns all the log messages
   const logs = await prisma.log.findMany()
   res.json(logs)
@@ -71,6 +71,19 @@ app.get("/logs/search/message", async (req, res) => {
       message: {
         contains: req.query.message
       }
+    }
+  })
+  res.json(logs)
+});
+
+// get all log message with specific request id
+app.get("logs/search/request_id", async (req, res) => {
+  if(!req.query.request_id) {
+    res.status(400).json({message: "request_id is required"})
+  }
+  const logs = await prisma.log.findMany({
+    where: {
+      requestId: req.query.request_id
     }
   })
   res.json(logs)
