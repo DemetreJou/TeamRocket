@@ -16,7 +16,7 @@
     "supertest": "^6.1.6"
   },
   "scripts": {
-    "start": "node app/server/server.js",
+    "start": "node app/server/server.js"
   },
   "author": "",
   "license": "ISC"
