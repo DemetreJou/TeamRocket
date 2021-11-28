@@ -3,10 +3,13 @@ services:
   database:
     image: postgres:14.0-alpine
     restart: always
+    command: -p 5433
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: teamrocket_db
+    expose:
+      - 5433
     ports:
       # using 5433 to avoid conflict with default port on dev machines
       - "5433:5433"
@@ -19,6 +22,7 @@ services:
       target: prod
     environment:
       SEND_TO_URL: "http://log_creator_2:3001/"
+      LOGGING_URL: "http://logging_server:3000/"
       PORT: 3002
     ports:
       - "3002:3002"
@@ -31,6 +35,7 @@ services:
       target: prod
     environment:
       SEND_TO_URL: "http://log_creator_1:3002/"
+      LOGGING_URL: "http://logging_server:3000/"
       PORT: 3001
     ports:
       - "3001:3001"
@@ -45,6 +50,8 @@ services:
       - database
     environment:
       PORT: 3000
-      DATABASE_URL: postgres://postgres:password@database:5433/teamrocket_db
+      DATABASE_URL: postgres://postgres:password@database:5433/teamrocket_db?sslmode=disable?schema=public
+    expose:
+      - 3000
     ports:
       - "3000:3000"

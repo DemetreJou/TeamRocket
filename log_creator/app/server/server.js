@@ -14,7 +14,7 @@ app.get("/current_time", (req, res) => {
   const request_id = req.query["request_id"];
   let date = new Date();
   date.toISOString();
-  // TODO: send request to logging server
+  sendLogMessage("Responding to request for current time", request_id);
   res.send(date);
 });
 
@@ -34,16 +34,39 @@ function createLog() {
         request_id: request_id
       }
     })
-    .then(function(response) {
-      // TODO: send request to logging server
-      // console.log("success");
+    .then(function (response) {
+      sendLogMessage("Successfully got current time", request_id)
     })
-    .catch(function(error) {
-      // TODO: send result to logging server
-      // console.log("fail");
+    .catch(function (error) {
+      sendLogMessage("Failed to get current time", request_id)
+    });
+}
+
+function sendLogMessage(message, request_id) {
+  const log_message = {
+    message: message,
+    level: "DEBUG",
+    machineId: `log_creator_${PORT}`,
+    request_id: request_id,
+  };
+  axios
+    .post(
+      config.webapp.logging_url + "log",
+      log_message,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then(function (response) {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error)
     });
 }
 
 const _ = setInterval(createLog, 3000);
 
-module.exports = { server: server, app: app };
+module.exports = {server: server, app: app};

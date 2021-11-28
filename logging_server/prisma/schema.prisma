@@ -13,4 +13,5 @@ model log {
   timestamp     DateTime    @db.Timestamp @default(now())
   logLevel      String?     @db.Text  // should probably be an enum or int so you can do logLevel >= "error" or similar
   message       String      @db.Text
+  request_id    Int?
 }
