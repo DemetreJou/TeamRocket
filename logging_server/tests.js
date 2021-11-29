@@ -1,5 +1,5 @@
-const request = require('supertest');
-const expect = require('chai').expect;
+const request = require('supertest')
+const expect = require('chai').expect
 
 const log_1 = {
   message: 'test message 1',
@@ -31,7 +31,7 @@ describe('loading express', function () {
     return await prisma.$disconnect()
   })
 
-  async function add_default_data() {
+  async function add_default_data () {
     await prisma.log.createMany({
       data: [
         log_1,
@@ -89,7 +89,6 @@ describe('loading express', function () {
         expect(res.body).to.be.an('array')
         expect(res.body.length).to.equal(0)
       })
-
   })
   it('gets 2 messages', async () => {
     await add_default_data()
@@ -144,8 +143,8 @@ describe('loading express', function () {
     return await request(server)
       .get('/logs/search/time_period')
       .query({
-        from: "2021-01-01",
-        to: "2022-01-01"
+        from: '2021-01-01',
+        to: '2022-01-01'
       })
       .expect('Content-Type', /json/)
       .expect(200)
@@ -157,7 +156,7 @@ describe('loading express', function () {
     return await request(server)
       .get('/logs/search/time_period')
       .query({
-        from: "2021-01-01",
+        from: '2021-01-01'
       })
       .expect('Content-Type', /json/)
       .expect(400)
@@ -231,8 +230,8 @@ describe('loading express', function () {
       .get('/logs/search/')
       .query({
         machine_id: 'test-machine-1',
-        from: "2021-01-01",
-        to: "2022-01-01"
+        from: '2021-01-01',
+        to: '2022-01-01'
       })
       .expect('Content-Type', /json/)
       .expect(200)
@@ -257,8 +256,8 @@ describe('loading express', function () {
       .get('/logs/search/')
       .query({
         machine_id: 'test-machine-1',
-        from: "2021-01-01",
-        to: "2022-01-01",
+        from: '2021-01-01',
+        to: '2022-01-01',
         message: 'test message',
         request_id: '12345',
         level: 'INFO'
@@ -274,7 +273,7 @@ describe('loading express', function () {
       .get('/logs/search/')
       .query({
         machine_id: 'test-machine-1',
-        from: "2021-01-01",
+        from: '2021-01-01',
         message: 'test message',
         request_id: '12345',
         level: 'INFO'
@@ -307,11 +306,11 @@ describe('loading express', function () {
         message: 'test',
         level: 'INFO',
         machine_id: 'test-machine-id',
-        request_id: '12345',
+        request_id: '12345'
       })
       .expect(200)
       .then(res => {
         expect(res.body.length).to.equal(1)
       })
   })
-});
+})
