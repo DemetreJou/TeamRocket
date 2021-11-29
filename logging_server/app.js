@@ -147,7 +147,7 @@ function valid_date_range(req) {
   return from_undefined === to_undefined
 }
 
-app.listen(PORT, () => {
+server = app.listen(PORT, () => {
   console.log(`log collection server running at http://localhost:${PORT}`);
 });
-module.exports = app;
+module.exports = {server: server, app: app, prisma: prisma}

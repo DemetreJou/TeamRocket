@@ -22,10 +22,6 @@ app.get("/api", (req, res) => {
   res.json({ message: "Hello from the server!" });
 });
 
-server = app.listen(PORT, () => {
-  console.log(`log_creator running at http://localhost:${PORT}`);
-});
-
 function sendGetTimeRequest() {
   const request_id = uuidv4();
   axios
@@ -69,4 +65,7 @@ function sendLogMessage(message, request_id) {
 
 const _ = setInterval(sendGetTimeRequest, 10000);
 
+server = app.listen(PORT, () => {
+  console.log(`log_creator running at http://localhost:${PORT}`);
+});
 module.exports = {server: server, app: app};
