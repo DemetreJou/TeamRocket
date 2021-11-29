@@ -13,12 +13,19 @@ app.get("/", (req, res) => {
 });
 
 async function saveLog(log) {
+  let request_id
+  if (isNaN(parseInt(log.request_id)) ){
+    request_id = null
+  } else {
+    request_id = parseInt(log.request_id)
+  }
   return prisma.log.create({
     data: {
       message: log.message,
       logLevel: log.level,
       timestamp: log.timestamp,
       machineId: log.machine_id,
+      requestId: request_id
     }
   })
 }
@@ -36,8 +43,9 @@ app.get("/logs/search/all", async (req, res) => {
 });
 
 app.get("/logs/search/machine_id", async (req, res) => {
-  if(!req.query.machine_id) {
+  if (!req.query.machine_id) {
     res.status(400).json({message: "machine_id is required"})
+    return
   }
   const logs = await prisma.log.findMany({
     where: {
@@ -79,13 +87,14 @@ app.get("/logs/search/message", async (req, res) => {
   res.json(logs)
 });
 
-app.get("logs/search/request_id", async (req, res) => {
+app.get("/logs/search/request_id", async (req, res) => {
   if (!req.query.request_id) {
     res.status(400).json({message: "request_id is required"})
+    return
   }
   const logs = await prisma.log.findMany({
     where: {
-      requestId: req.query.request_id
+      requestId: parseInt(req.query.request_id)
     }
   })
   res.json(logs)
@@ -107,8 +116,8 @@ app.get("/logs/search/level", async (req, res) => {
 app.get("/logs/search", async (req, res) => {
     // generic search that can receive multiple parameters and parse them appropriately
     let where_clause = {}
-    if (valid_date_range(req)){
-      if(req.query.from !== undefined) {
+    if (valid_date_range(req)) {
+      if (req.query.from !== undefined) {
         where_clause = {
           timestamp: {
             gte: new Date(req.query.from),
@@ -123,17 +132,17 @@ app.get("/logs/search", async (req, res) => {
     if (req.query.machine_id) {
       where_clause.machineId = req.query.machine_id
     }
-    if(req.query.level) {
+    if (req.query.level) {
       where_clause.logLevel = req.query.level
     }
-    if(req.query.message) {
+    if (req.query.message) {
       where_clause.message = {
         contains: req.query.message,
         mode: 'insensitive'
       }
     }
-    if(req.query.request_id) {
-      where_clause.requestId = req.query.request_id
+    if (req.query.request_id) {
+      where_clause.requestId = parseInt(req.query.request_id)
     }
 
     const logs = await prisma.log.findMany({
