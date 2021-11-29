@@ -48,19 +48,21 @@ app.get("/logs/search/machine_id", async (req, res) => {
 });
 
 app.get("/logs/search/time_period", async (req, res) => {
-  const from_exists = req.query.from.length > 0
-  const to_exists = req.query.from.length > 0
-  if (from_exists !== to_exists) {
-    res.status(400).json({message: "from and to must both be present or neither be present"})
+  if (!valid_date_range(req)) {
+    res.status(400).json({message: "from and to must both be present or neither be present"}).send()
+    return
   }
-
-  const logs = await prisma.log.findMany({
-    where: {
+  let where_clause = {}
+  if (req.query.from !== undefined) {
+    where_clause = {
       timestamp: {
         gte: new Date(req.query.from),
         lte: new Date(req.query.to)
       }
     }
+  }
+  const logs = await prisma.log.findMany({
+    where: where_clause
   })
   res.json(logs)
 });
