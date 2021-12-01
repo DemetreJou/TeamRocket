@@ -1,0 +1,16 @@
+# =========================================================================== 
+# This script utilizes LinAction to detect potential issues with our code. 
+# AutoFix feature included. 
+# =========================================================================== 
+
+name: LintAction
+
+# Controls when the workflow will run
+on:
+  # Execute the script when a PR to main is submitted 
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
