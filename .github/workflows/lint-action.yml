@@ -14,3 +14,24 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Define jobs here 
+jobs: 
+  # run linter job 
+  run-linters: 
+    name: Execute Linters 
+    # execute on Ubuntu OS 
+    runs-on: ubuntu-latest 
+
+    # Define the steps here 
+    steps: 
+      - name: Check out Git repository 
+      - uses: actions/checkout@v2 
+
+      # HERE BEGINS LINTERS 
+
+      - name: Lint Action
+      - uses: wearerequired/lint-action@v1.10.0
+      - with: 
+         auto_fix: true 
+
+
