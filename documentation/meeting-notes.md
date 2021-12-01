@@ -1,4 +1,4 @@
-## Meeting Notes
+# Meeting Notes
 
 ### First Meeting
 
