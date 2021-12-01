@@ -19,7 +19,17 @@
 ### Second Meeting (October 17th, 2021)
 
 - Meeting commenced at 5:20pm 
-- All team members briefed each other on res 
+- All team members briefed each other on research that has been completed so far 
+- Sultan spoke about ElasticSearch from AWS and researched conducted on it 
+- Demetre spoke about OpenTelemetry and elements from it we can implement 
+- All team members discussed elements from existing logging tools that can be implemented in our project 
+- Abhi spoke about the importance of linting and automated code scanning
+  - Also how it can be implemented in our GitHub Repo using GitHub Actions 
+  - Abhi mentioned he will begin working on the scripts 
+- Demetre and Gazi spoke about how the frontend will interact with the backend 
+- Brief discussion about expanding number of endpoints in the backend 
+  - Ultimate decision: stick with 2 endpoints only, for the time being 
+- Meeting ended at 5:47pm 
 
 
 ### Third Meeting (October 30th 2021)
