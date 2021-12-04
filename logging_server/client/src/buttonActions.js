@@ -6,13 +6,11 @@ const baseSearch = async (query) => {
   return await fetch(baseUrl + query)
     .then(res => res.json())
     .then(res => {
-      const rows = [];
+      let rows = [];
       res.map(x => {
-        rows.push(createData(x.id, x.message, x.logLevel, x.timestamp));
+        rows.unshift(createData(x.id, x.message, x.logLevel, x.timestamp, x.requestId,x.machineId));
       });
-      rows.sort((a, b) => {
-        return a.timestamp - b.timestamp;
-      });
+      console.log(rows)
       return rows
     })
     .catch(err => {

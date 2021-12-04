@@ -1,31 +1,34 @@
 import React from "react";
 import "./App.css";
-import {createData, DataTable} from "./DataTable";
+import {DataTable} from "./DataTable";
 import {StyledEngineProvider} from "@mui/material/styles";
 import {baseSearch} from "./buttonActions";
-import {Button, TextField} from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import {Box, Button, TextField} from "@mui/material";
 
-// const useStyles = makeStyles({
-//   root: {
-//     background: 'white',
-//     border: 0,
-//     borderRadius: 3,
-//     color: 'white',
-//     height: 48,
-//     marginBottom: "30px"
-//     // padding: '30 30 30 30px',
-//   },
-// });
+function CustomTextField(props) {
+  return (<TextField
+    style={{
+      marginBottom: "10px"
+    }}
+    id="outlined-name"
+    label={props.label}
+    variant={'outlined'}
+    value={props.value}
+    onChange={(newValue) => {
+      props.onChangeFunc(newValue.target.value)
+    }}
+  />);
+}
 
 
-
-function App(props) {
+function App() {
 
   const [data, setData] = React.useState([]);
   const [messageSearch, setMessageSearch] = React.useState("");
   const [logLevelSearch, setLogLevelSearch] = React.useState("");
+  const [requestIdSearch, setRequestIdSearch] = React.useState("");
   const [totalSearch, setTotalSearch] = React.useState("");
+  const [machineIdSearch, setMachineIdSearch] = React.useState("");
 
   const construct_search_query = () => {
     let query = "?"
@@ -38,52 +41,58 @@ function App(props) {
       }
       query += "level=" + logLevelSearch
     }
+    if (requestIdSearch !== "") {
+      if (query !== "") {
+        query += "&"
+      }
+      query += "request_id=" + requestIdSearch
+    }
+    if(machineIdSearch !== ""){
+      if (query !== "") {
+        query += "&"
+      }
+      query += "machine_id=" + machineIdSearch
+    }
     setTotalSearch(query)
   }
 
 
-  React.useEffect(() => {
-    fetch("/logs/search")
-      .then(res => res.json())
-      .then(res => {
-        const rows = [];
-        res.map(x => {
-          rows.unshift(createData(x.id, x.message, x.logLevel, x.timestamp));
-        });
-        rows.sort((a, b) => {
-          return a.timestamp - b.timestamp;
-        });
-        setData(rows);
-      })
-      .catch(err => console.log(err));
+  React.useEffect(async () => {
+    setData(await baseSearch(""))
   }, []);
+
   return (<div className="App">
     <header className="App-header">
       <h2>{"Distributed Logging and Monitoring System"}</h2>
-      <TextField
-        style={{
-          marginBottom: "10px"
+      <Box
+        component="form"
+        sx={{
+          '& > :not(style)': {m: 1, width: '25ch'},
         }}
-        id="outlined-name"
-        label="Message Search"
-        variant={'outlined'}
-        value={messageSearch}
-        onChange={(newValue) => {
-          setMessageSearch(newValue.target.value)
-        }}
-      />
-      <TextField
-        style={{
-          marginBottom: "10px"
-        }}
-        id="outlined-name"
-        label="Log Level Search"
-        variant={'outlined'}
-        value={logLevelSearch}
-        onChange={(newValue) => {
-          setLogLevelSearch(newValue.target.value)
-        }}
-      />
+        noValidate
+        autoComplete="off"
+      >
+        <CustomTextField
+          label="Message Search"
+          value={messageSearch}
+          onChangeFunc={setMessageSearch}
+        />
+        <CustomTextField
+          label="Log Level Search"
+          value={logLevelSearch}
+          onChangeFunc={setLogLevelSearch}
+        />
+        <CustomTextField
+          label="Request ID Search"
+          value={requestIdSearch}
+          onChangeFunc={setRequestIdSearch}
+        />
+        <CustomTextField
+          label="Machine ID Search"
+          value={machineIdSearch}
+          onChangeFunc={setMachineIdSearch}
+        />
+      </Box>
       <Button
         style={{
           marginBottom: "10px"
@@ -97,6 +106,20 @@ function App(props) {
           setData(await baseSearch(totalSearch));
         }}>
         Search
+      </Button>
+      <Button
+        style={{
+          marginBottom: "10px"
+        }}
+        color={'primary'}
+        variant={'contained'}
+        id={'Refresh'}
+        onClick={async () => {
+          console.log(totalSearch)
+          construct_search_query()
+          setData(await baseSearch(totalSearch));
+        }}>
+        Refresh
       </Button>
       <StyledEngineProvider injectFirst>
         <DataTable
