@@ -2,30 +2,31 @@ import React from "react";
 import "./App.css";
 import {createData, DataTable} from "./DataTable";
 import {StyledEngineProvider} from "@mui/material/styles";
-import SearchBar from "material-ui-search-bar";
+import {baseSearch} from "./buttonActions";
+import {Button, TextField} from "@mui/material";
 
-const searchMessages = async (search_term) => {
-  return await fetch("/logs/search/" + "?message=" + search_term)
-    .then(res => res.json())
-    .then(res => {
-      const rows = [];
-      res.map(x => {
-        rows.push(createData(x.id, x.message, x.logLevel, x.timestamp));
-      });
-      rows.sort((a, b) => {
-        return a.timestamp - b.timestamp;
-      });
-      return rows
-    })
-    .catch(err => {
-      console.log(err);
-      return [];
-    });
-}
 
 function App(props) {
+
   const [data, setData] = React.useState([]);
-  const [search, setSearch] = React.useState("");
+  const [messageSearch, setMessageSearch] = React.useState("");
+  const [logLevelSearch, setLogLevelSearch] = React.useState("");
+  const [totalSearch, setTotalSearch] = React.useState("");
+
+  const construct_search_query = () => {
+    let query = "?"
+    if (messageSearch !== "") {
+      query += "message=" + messageSearch
+    }
+    if (logLevelSearch !== "") {
+      if (query !== "") {
+        query += "&"
+      }
+      query += "level=" + logLevelSearch
+    }
+    setTotalSearch(query)
+  }
+
 
   React.useEffect(() => {
     fetch("/logs/search")
@@ -45,14 +46,35 @@ function App(props) {
   return (<div className="App">
     <header className="App-header">
       <h2>{"Distributed Logging and Monitoring System"}</h2>
-      <SearchBar
-        placeholder={'Search message contents'}
-        value={search}
-        onChange={(newValue) => setSearch(newValue)}
-        onRequestSearch={async () => {
-          setData(await searchMessages(search))
+      <TextField
+        id="outlined-name"
+        label="Message Search"
+        variant={'outlined'}
+        value={messageSearch}
+        onChange={(newValue) => {
+          setMessageSearch(newValue.target.value)
         }}
       />
+      <TextField
+        id="outlined-name"
+        label="Log Level Search"
+        variant={'outlined'}
+        value={logLevelSearch}
+        onChange={(newValue) => {
+          setLogLevelSearch(newValue.target.value)
+        }}
+      />
+      <Button
+        color={'secondary'}
+        variant={'contained'}
+        id={'Search'}
+        onClick={async () => {
+          console.log(totalSearch)
+          construct_search_query()
+          setData(await baseSearch(totalSearch));
+        }}>
+        Search
+      </Button>
       <StyledEngineProvider injectFirst>
         <DataTable rows={data}/>
       </StyledEngineProvider>
