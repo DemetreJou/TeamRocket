@@ -46,8 +46,7 @@ function App() {
         <h2>{"Distributed Logging and Monitoring System"}</h2>
         <SearchBar
           value={"hello"}
-          onChange={(newValue) => this.setState({ value: newValue })}
-          onRequestSearch={() => console.log("hello")}
+          onRequestSearch={() => console.log("on-request")}
         />
         <StyledEngineProvider injectFirst>
           <DataTable rows={data}/>
