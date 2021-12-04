@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://logging_server:8000",
+  "proxy": "http://localhost:8000",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.0",
@@ -9,6 +9,7 @@
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.2",
     "@mui/utils": "^5.2.2",
+    "@mui/styles": "^5.2.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
